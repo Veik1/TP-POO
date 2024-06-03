@@ -33,21 +33,30 @@ public class Main {
 
         // Listas de experiencias, pasajes y day tours
         List<Pasaje> listaPasajes = new ArrayList<>();
-        listaPasajes.add(new Pasaje("Pasaje a Argentina", 300.0, new Fecha("15/06/2024"), "10:00", "18:00", "Buenos Aires", "Punta del este", 1));
-        listaPasajes.add(new Pasaje("Pasaje a Uruguay", 450.0, new Fecha("20/07/2024"), "12:00", "20:00", "Punta del este", "Buenos Aires", 1));
+        Pasaje pasaje1 = new Pasaje("Pasaje a Argentina", 300.0, new Fecha("15/06/2024"), "10:00", "18:00", "Buenos Aires", "Punta del este", 1);
+        Pasaje pasaje2 = new Pasaje("Pasaje a Uruguay", 450.0, new Fecha("20/07/2024"), "12:00", "20:00", "Punta del este", "Buenos Aires", 1);
+        listaPasajes.add(pasaje1);
+        listaPasajes.add(pasaje2);
         
         List<Experiencia> listaExperiencias = new ArrayList<>();
-        listaExperiencias.add(new Experiencia("Playa del Carmen", 100.0, "Una experiencia inolvidable en la playa", "Vacaciones"));
-        listaExperiencias.add(new Experiencia("Montañas Rocosas", 200.0, "Aventura en las montañas", "Aventura"));
-        listaExperiencias.add(new Experiencia("Amazonas", 150.0, "Exploración en la selva", "Exploración"));
+        Experiencia experiencia1 = new Experiencia("Playa del Carmen", 100.0, "Una experiencia inolvidable en la playa", "Vacaciones");
+        Experiencia experiencia2 = new Experiencia("Montañas Rocosas", 200.0, "Aventura en las montañas", "Aventura");
+        Experiencia experiencia3 = new Experiencia("Amazonas", 150.0, "Exploración en la selva", "Exploración");
+        listaExperiencias.add(experiencia1);
+        listaExperiencias.add(experiencia2);
+        listaExperiencias.add(experiencia3);
         
         List<DayTour> listaDayTours = new ArrayList<>();
-        listaDayTours.add(new DayTour("Colonia", 1000.0, "Pasaje ida y vuelta con vianda. Visita museo.", new Fecha("20/06/2024"), "16:30hs", "12hs", "Cristian Ciarallo"));
+        DayTour daytour1 = new DayTour("Colonia", 1000.0, "Pasaje ida y vuelta con vianda. Visita museo.", new Fecha("20/06/2024"), "16:30hs", "12hs", "Cristian Ciarallo");
+        listaDayTours.add(daytour1);
+        
+        List<Paquete> listaPaquetes = new ArrayList<>();
+        listaPaquetes.add(new Paquete("Pack 1", 100, "Hotel 5 estrellas", pasaje1, experiencia1, daytour1));
 
-        menuPrincipal(opcion, listaClientes, listaExperiencias, listaPasajes, listaDayTours);
+        menuPrincipal(opcion, listaClientes, listaExperiencias, listaPasajes, listaDayTours, listaPaquetes);
     }
 
-    public static void menuPrincipal(Scanner entrada, List<Cliente> listaClientes, List<Experiencia> listaExperiencias, List<Pasaje> listaPasajes, List<DayTour> listaDayTours) {
+    public static void menuPrincipal(Scanner entrada, List<Cliente> listaClientes, List<Experiencia> listaExperiencias, List<Pasaje> listaPasajes, List<DayTour> listaDayTours, List<Paquete> listaPaquetes) {
         boolean salir = false;
         while (!salir) {
             System.out.println("Menú Principal\n");
@@ -75,7 +84,7 @@ public class Main {
                     Cliente clienteEncontrado = Cliente.buscarCliente(email, password, listaClientes);
                     if (clienteEncontrado != null) {
                         System.out.println("Cliente encontrado: " + clienteEncontrado);
-                        clienteOpciones(entrada, clienteEncontrado, listaExperiencias, listaPasajes, listaDayTours);
+                        clienteOpciones(entrada, clienteEncontrado, listaExperiencias, listaPasajes, listaDayTours, listaPaquetes);
                     } else {
                         System.out.println("Cliente no encontrado.");
                     }
@@ -91,7 +100,7 @@ public class Main {
         }
     }
 
-    public static void clienteOpciones(Scanner entrada, Cliente cliente, List<Experiencia> listaExperiencias, List<Pasaje> listaPasajes, List<DayTour> listaDayTours) {
+    public static void clienteOpciones(Scanner entrada, Cliente cliente, List<Experiencia> listaExperiencias, List<Pasaje> listaPasajes, List<DayTour> listaDayTours, List<Paquete> listaPaquete) {
         boolean salir = false;
         while (!salir) {
             System.out.println("\nMenú de opciones: \n");
@@ -107,7 +116,7 @@ public class Main {
             entrada.nextLine();
             switch (opcion) {
                 case 1:
-                    menuProductos(entrada, cliente, listaExperiencias, listaPasajes, listaDayTours);
+                    menuProductos(entrada, cliente, listaExperiencias, listaPasajes, listaDayTours, listaPaquete);
                     break;
                 case 2:
                     System.out.println("Esto representa la parte de realizar consultas");
@@ -132,7 +141,7 @@ public class Main {
         }
     }
 
-    public static void menuProductos(Scanner entrada, Cliente cliente, List<Experiencia> listaExperiencias, List<Pasaje> listaPasajes, List<DayTour> listaDayTours) {
+    public static void menuProductos(Scanner entrada, Cliente cliente, List<Experiencia> listaExperiencias, List<Pasaje> listaPasajes, List<DayTour> listaDayTours, List<Paquete> listaPaquetes) {
         System.out.println("1- Pasaje");
         System.out.println("2- Experiencia");
         System.out.println("3- Day Tour");
@@ -208,7 +217,7 @@ public class Main {
                 
                 int seleccionDayTour = entrada.nextInt();
                 entrada.nextLine();
-                if (seleccionDayTour > 0 && seleccionDayTour <= listaExperiencias.size()) {
+                if (seleccionDayTour > 0 && seleccionDayTour <= listaDayTours.size()) {
                     DayTour daytour = listaDayTours.get(seleccionDayTour - 1);
                     Pago pagoDayTour = new Pago(cliente);
                     try {
@@ -228,8 +237,32 @@ public class Main {
                 
                 break;
             case 4:
-                // Lógica para seleccionar un paquete
-                System.out.println("Seleccionaste un paquete");
+                // Mostrar lista de paquete
+                System.out.println("Lista de Paquetes Disponibles:");
+                for (int i = 0; i < listaPaquetes.size(); i++) {
+                    System.out.println((i + 1) + ". " + listaPaquetes.get(i).toString());
+                }
+                System.out.print("Seleccione el paquete que desea reservar: ");
+                
+                int seleccionPaquete = entrada.nextInt();
+                entrada.nextLine();
+                if (seleccionPaquete > 0 && seleccionPaquete <= listaPaquetes.size()) {
+                    Paquete paquete = listaPaquetes.get(seleccionPaquete - 1);
+                    Pago pagoPaquete = new Pago(cliente);
+                    try {
+                    	pagoPaquete.seleccionarMetodoDePago(entrada);
+                        Reserva nuevaReserva = new Reserva(cliente.getNombre() + ' ' + cliente.getApellido(), 1, "Hecha", Fecha.obtenerFechaYHoraActual(), paquete.getPrecio());
+                        nuevaReserva.agregarProducto(paquete);
+                        cliente.agregarReserva(nuevaReserva);
+                        System.out.println("Reserva realizada para: " + paquete.getNombre());
+                        System.out.println("¡Gracias por elegir Buquealtoque!");
+                    } catch (Exception e) {
+                        System.out.println("Error al realizar el pago: " + e.getMessage());
+                        System.out.println("La reserva no ha podido realizarse.");
+                    }
+                } else {
+                    System.out.println("Opción no válida. Por favor, seleccione una opción válida.");
+                }
                 break;
             default:
                 System.out.println("Opción no válida. Por favor, seleccione una opción válida.");

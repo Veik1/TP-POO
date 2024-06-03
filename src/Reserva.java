@@ -73,13 +73,21 @@ public class Reserva {
 
     @Override
     public String toString() {
-        return "ID de Reserva = " + idReserva +
-                ", Cliente = " + clienteNombre +
-                ", Cantidad bodega = " + cantidadBodega +
-                ", Productos = " + productos +
-                ", Estado de la reserva = " + estadoReserva +
-                ", Fecha = " + fecha +
-                ", Valor final = " + (valorFinal+200) + "\n";
+        StringBuilder sb = new StringBuilder();
+        String line = "+----------------------------------------------+\n";
+        
+        sb.append(line);
+        sb.append(String.format("| %-20s %-21s |\n", "Detalles de la Reserva", "(ID: " + idReserva + ")"));
+        sb.append(line);
+        sb.append(String.format("| %-20s: %-22s |\n", "Cliente", clienteNombre));
+        sb.append(String.format("| %-20s: %-22s |\n", "Cantidad bodega", cantidadBodega));
+        sb.append(String.format("| %-20s: %-22s |\n", "Productos", productos));
+        sb.append(String.format("| %-20s: %-22s |\n", "Estado de la reserva", estadoReserva));
+        sb.append(String.format("| %-20s: %-22s |\n", "Fecha", fecha));
+        sb.append(String.format("| %-20s: %-22s |\n", "Valor final", valorFinal + 200));
+        sb.append(line);
+        
+        return sb.toString();
     }
     
     public Reserva crearReserva(Cliente cliente, Producto producto) {

@@ -3,13 +3,17 @@ import java.util.List;
 
 public class Paquete extends Producto {
 	private String hotel;
-	private List<Producto> productos;
+	private Pasaje pasaje;
+	private Experiencia experiencia;
+	private DayTour daytour;
 	
 	// Constructor
-	Paquete(String nombre, double precio, String hotel) {
+	Paquete(String nombre, double precio, String hotel, Pasaje pasaje, Experiencia experiencia, DayTour daytour) {
 		super(nombre, precio);
 		this.hotel = hotel;
-		this.productos = new ArrayList<>();
+		this.pasaje = pasaje;
+		this.experiencia = experiencia;
+		this.daytour = daytour;
 	}
 	
 	//Getters y setter
@@ -20,18 +24,39 @@ public class Paquete extends Producto {
 	public void setHotel(String hotel) {
 		this.hotel = hotel;
 	}
-	
-	public List<Producto> getProductos() {
-		return productos;
+
+	public Pasaje getPasaje() {
+		return pasaje;
 	}
 
-	public void setProductos(List<Producto> productos) {
-		this.productos = productos;
+	public void setPasaje(Pasaje pasaje) {
+		this.pasaje = pasaje;
 	}
+
+	public Experiencia getExperiencia() {
+		return experiencia;
+	}
+
+	public void setExperiencia(Experiencia experiencia) {
+		this.experiencia = experiencia;
+	}
+
+	public DayTour getDaytour() {
+		return daytour;
+	}
+
+	public void setDaytour(DayTour daytour) {
+		this.daytour = daytour;
+	}
+	
 	
     @Override
     public String toString() {
-        return "Paquete - " + getNombre();
+        return "Paquete - " + getNombre() + 
+               ",\n hotel = " + hotel +
+               ", \n Pasaje = " + pasaje.getNombre() +
+               ", \n Experiencia = " + experiencia.getNombre() +
+               ", \n DayTour = " + daytour.getNombre() + "\n";
     }
  
 	public void mostrarProductos(){
