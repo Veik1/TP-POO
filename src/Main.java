@@ -106,9 +106,8 @@ public class Main {
             System.out.println("\nMenú de opciones: \n");
             System.out.println("1 - Realizar reserva");
             System.out.println("2 - Realizar consulta");
-            System.out.println("3 - Cancelar reserva");
+            System.out.println("3 - Mis reservas");
             System.out.println("4 - Métodos de pago");
-            System.out.println("5 - Mis reservas");
             System.out.println("0 - Salir a Menú Principal\n");
             System.out.print("Ingrese una opción: ");
 
@@ -122,13 +121,10 @@ public class Main {
                     System.out.println("Esto representa la parte de realizar consultas");
                     break;
                 case 3:
-                    System.out.println("Esto representa la parte de cancelar reservas");
+                    menuReservas(entrada, cliente);
                     break;
                 case 4:
                     menuMetodoPago(entrada, cliente);
-                    break;
-                case 5:
-                    menuReservas(entrada, cliente);
                     break;
                 case 0:
                     salir = true;
@@ -168,9 +164,23 @@ public class Main {
                         pagoPasaje.seleccionarMetodoDePago(entrada);
                         Reserva nuevaReserva = new Reserva(cliente.getNombre() + ' ' + cliente.getApellido(), 1, "Hecha", Fecha.obtenerFechaYHoraActual(), pasaje.getPrecio());
                         nuevaReserva.agregarProducto(pasaje);
+                        double precioNuevo = nuevaReserva.calcularValorFinal();
+                        nuevaReserva.setValorFinal(precioNuevo);
                         cliente.agregarReserva(nuevaReserva);
                         System.out.println("Reserva realizada para: " + pasaje.getNombre());
                         System.out.println("¡Gracias por elegir Buquealtoque!");
+                        
+                        System.out.println("\n¿Querés agregar más productos a la reserva?\n1 - Sí\n2 - No");
+                        System.out.println("\nSeleccione una opción: ");
+                        
+                        int opcionProductoAdicional = entrada.nextInt();
+                        switch (opcionProductoAdicional) {
+                        case 1: 
+                        	menuProductoAdicional(entrada, cliente, listaExperiencias, listaPasajes, listaDayTours, listaPaquetes, nuevaReserva);
+                        	break;
+                        case 2:
+                        	break;
+                        }
                     } catch (Exception e) {
                         System.out.println("Error al realizar el pago: " + e.getMessage());
                         System.out.println("La reserva no ha podido realizarse.");
@@ -269,6 +279,137 @@ public class Main {
                 break;
         }
     }
+    
+    public static void menuProductoAdicional(Scanner entrada, Cliente cliente, List<Experiencia> listaExperiencias, List<Pasaje> listaPasajes, List<DayTour> listaDayTours, List<Paquete> listaPaquetes, Reserva nuevaReserva) {
+    	boolean salir = false;
+    	
+    	 while (!salir) {
+    		 System.out.println("1- Pasaje");
+    	     System.out.println("2- Experiencia");
+    	     System.out.println("3- Day Tour");
+    	     System.out.println("4- Paquete\n");
+             System.out.println("0 - Salir a Menú\n");
+    	     System.out.print("Seleccione su producto adicional: ");
+    	     
+             int opcion = entrada.nextInt();
+             entrada.nextLine();
+             
+             switch (opcion) {
+             case 1:
+                 // Mostrar lista de pasajes
+                 System.out.println("Lista de Pasajes Disponibles:");
+                 for (int i = 0; i < listaPasajes.size(); i++) {
+                     System.out.println((i + 1) + ". " + listaPasajes.get(i).toString());
+                 }
+                 System.out.print("Seleccione el pasaje que desea reservar: ");
+                 
+                 int seleccionPasaje = entrada.nextInt();
+                 entrada.nextLine();
+                 if (seleccionPasaje > 0 && seleccionPasaje <= listaPasajes.size()) {
+                     Pasaje pasaje = listaPasajes.get(seleccionPasaje - 1);
+                     Pago pagoPasaje = new Pago(cliente);
+                     try {
+                    	 pagoPasaje.seleccionarMetodoDePago(entrada);
+                         nuevaReserva.agregarProducto(pasaje);
+                         double precioNuevo = nuevaReserva.calcularValorFinal();
+                         nuevaReserva.setValorFinal(precioNuevo);
+                     } catch (Exception e) {
+                         System.out.println("Error al realizar el pago: " + e.getMessage());
+                         System.out.println("La reserva en el producto adicional no ha podido realizarse.");
+                     }
+                 } else {
+                     System.out.println("Opción no válida. Por favor, seleccione una opción válida.");
+                 }
+                 break;
+             case 2:
+                 // Mostrar lista de experiencias
+                 System.out.println("Lista de Experiencias Disponibles:");
+                 for (int i = 0; i < listaExperiencias.size(); i++) {
+                     System.out.println((i + 1) + ". " + listaExperiencias.get(i).toString());
+                 }
+                 System.out.print("Seleccione la experiencia que desea reservar: ");
+                 
+                 int seleccionExperiencia = entrada.nextInt();
+                 entrada.nextLine();
+                 if (seleccionExperiencia > 0 && seleccionExperiencia <= listaExperiencias.size()) {
+                     Experiencia experiencia = listaExperiencias.get(seleccionExperiencia - 1);
+                     Pago pagoExperiencia = new Pago(cliente);
+                     try {
+                    	 pagoExperiencia.seleccionarMetodoDePago(entrada);
+                    	 nuevaReserva.agregarProducto(experiencia);
+                         double precioNuevo = nuevaReserva.calcularValorFinal();
+                         nuevaReserva.setValorFinal(precioNuevo);
+                     } catch (Exception e) {
+                         System.out.println("Error al realizar el pago: " + e.getMessage());
+                         System.out.println("La reserva en el producto adicional no ha podido realizarse.");
+                     }
+                 } else {
+                     System.out.println("Opción no válida. Por favor, seleccione una opción válida.");
+                 }
+                 break;
+             case 3:
+                 // Mostrar lista de experiencias
+                 System.out.println("Lista de Day Tours Disponibles:");
+                 for (int i = 0; i < listaDayTours.size(); i++) {
+                     System.out.println((i + 1) + ". " + listaDayTours.get(i).toString());
+                 }
+                 System.out.print("Seleccione el day tour que desea reservar: ");
+                 
+                 int seleccionDayTour = entrada.nextInt();
+                 entrada.nextLine();
+                 if (seleccionDayTour > 0 && seleccionDayTour <= listaDayTours.size()) {
+                     DayTour daytour = listaDayTours.get(seleccionDayTour - 1);
+                     Pago pagoDayTour = new Pago(cliente);
+                     try {
+                    	 pagoDayTour.seleccionarMetodoDePago(entrada);
+                    	 nuevaReserva.agregarProducto(daytour);
+                         double precioNuevo = nuevaReserva.calcularValorFinal();
+                         nuevaReserva.setValorFinal(precioNuevo);
+                     } catch (Exception e) {
+                         System.out.println("Error al realizar el pago: " + e.getMessage());
+                         System.out.println("La reserva en el producto adicional no ha podido realizarse.");
+                     }
+                 } else {
+                     System.out.println("Opción no válida. Por favor, seleccione una opción válida.");
+                 }
+                 
+                 break;
+             case 4:
+                 // Mostrar lista de paquete
+                 System.out.println("Lista de Paquetes Disponibles:");
+                 for (int i = 0; i < listaPaquetes.size(); i++) {
+                     System.out.println((i + 1) + ". " + listaPaquetes.get(i).toString());
+                 }
+                 System.out.print("Seleccione el paquete que desea reservar: ");
+                 
+                 int seleccionPaquete = entrada.nextInt();
+                 entrada.nextLine();
+                 if (seleccionPaquete > 0 && seleccionPaquete <= listaPaquetes.size()) {
+                     Paquete paquete = listaPaquetes.get(seleccionPaquete - 1);
+                     Pago pagoPaquete = new Pago(cliente);
+                     try {
+                    	 pagoPaquete.seleccionarMetodoDePago(entrada);
+                         nuevaReserva.agregarProducto(paquete);
+                         double precioNuevo = nuevaReserva.calcularValorFinal();
+                         nuevaReserva.setValorFinal(precioNuevo);
+                     } catch (Exception e) {
+                         System.out.println("Error al realizar el pago: " + e.getMessage());
+                         System.out.println("La reserva en el producto adicional no ha podido realizarse.");
+                     }
+                 } else {
+                     System.out.println("Opción no válida. Por favor, seleccione una opción válida.");
+                 }
+                 break;
+             case 0:
+                 salir = true;
+                 System.out.println("Regresando al menú...");
+                 break;
+             default:
+                 System.out.println("Opción no válida. Por favor, seleccione una opción válida.");
+                 break;
+         }
+    	 }
+    }
 
     public static void menuMetodoPago(Scanner entrada, Cliente cliente) {
         System.out.println("1- Añadir una tarjeta");
@@ -302,8 +443,24 @@ public class Main {
                 break;
         }
     }
-
+    
     public static void menuReservas(Scanner entrada, Cliente cliente) {
-        Cliente.mostrarReservas(cliente.getReservas());
+        System.out.println("1- Ver mis reservas");
+        System.out.println("2- Cancelar una reserva");
+        System.out.print("Seleccione su opción: ");
+
+        int opcion = entrada.nextInt();
+        entrada.nextLine();
+        switch (opcion) {
+        	case 1:
+        		cliente.mostrarReservas(cliente.getReservas());
+        		break;
+        	case 2:
+        		System.out.print("Seleccione la reserva a borrar por ID: ");
+        		int opcionBorrar = entrada.nextInt();
+        		cliente.cancelarReserva(opcionBorrar, cliente.getReservas());
+        		break;
+        }
     }
+    
 }

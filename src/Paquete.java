@@ -53,10 +53,10 @@ public class Paquete extends Producto {
     @Override
     public String toString() {
         return "Paquete - " + getNombre() + 
-               ",\n hotel = " + hotel +
-               ", \n Pasaje = " + pasaje.getNombre() +
-               ", \n Experiencia = " + experiencia.getNombre() +
-               ", \n DayTour = " + daytour.getNombre() + "\n";
+               ", hotel = " + hotel +
+               ", Pasaje = " + pasaje.getNombre() +
+               ", Experiencia = " + experiencia.getNombre() +
+               ", DayTour = " + daytour.getNombre();
     }
  
 	public void mostrarProductos(){

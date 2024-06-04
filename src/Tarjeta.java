@@ -4,11 +4,11 @@ public class Tarjeta {
     private String numTarjeta;
     private String nombreBanco;
     private String titular;
-    private Fecha fechaVec;
+    private FechaCorta fechaVec;
     private String codSeguridad;
 
     // Constructor
-    public Tarjeta(String numTarjeta, String nombreBanco, String titular, Fecha fechaVec, String codSeguridad) {
+    public Tarjeta(String numTarjeta, String nombreBanco, String titular, FechaCorta fechaVec, String codSeguridad) {
         this.numTarjeta = numTarjeta;
         this.nombreBanco = nombreBanco;
         this.titular = titular;
@@ -41,11 +41,11 @@ public class Tarjeta {
         this.titular = titular;
     }
 
-    public Fecha getFechaVec() {
+    public FechaCorta getFechaVec() {
         return fechaVec;
     }
 
-    public void setFechaVec(Fecha fechaVec) {
+    public void setFechaVec(FechaCorta fechaVec) {
         this.fechaVec = fechaVec;
     }
 
@@ -76,10 +76,10 @@ public class Tarjeta {
         System.out.print("Ingrese el nombre del titular: ");
         String titular = entrada.nextLine();
 
-        Fecha fechaVec = null;
+        FechaCorta fechaVec = null;
         while(fechaVec == null) {
-            System.out.print("Ingrese la Fecha de vencimiento (dd/MM/aaaa): ");
-            fechaVec = Fecha.obtenerFecha(entrada.nextLine());
+            System.out.print("Ingrese la Fecha de vencimiento (MM/aaaa): ");
+            fechaVec = FechaCorta.obtenerFecha(entrada.nextLine());
         }
 
         System.out.print("Ingrese el código de seguridad: ");

@@ -70,23 +70,33 @@ public class Reserva {
     public void setValorFinal(double valorFinal) {
         this.valorFinal = valorFinal;
     }
-
+    
+    public double calcularValorFinal() {
+    	this.valorFinal = 0;
+    	
+        for (int i = 0; i < productos.size(); i++) {
+        	this.valorFinal += productos.get(i).getPrecio();
+        }
+        
+        return valorFinal;
+    }
+ 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        String line = "+----------------------------------------------+\n";
-        
+        String line = "+----------------------------------------------------------+\n";
+
         sb.append(line);
-        sb.append(String.format("| %-20s %-21s |\n", "Detalles de la Reserva", "(ID: " + idReserva + ")"));
+        sb.append(String.format("| %-30s %-25s |\n", "Detalles de la Reserva", "(ID: " + idReserva + ")"));
         sb.append(line);
-        sb.append(String.format("| %-20s: %-22s |\n", "Cliente", clienteNombre));
-        sb.append(String.format("| %-20s: %-22s |\n", "Cantidad bodega", cantidadBodega));
-        sb.append(String.format("| %-20s: %-22s |\n", "Productos", productos));
-        sb.append(String.format("| %-20s: %-22s |\n", "Estado de la reserva", estadoReserva));
-        sb.append(String.format("| %-20s: %-22s |\n", "Fecha", fecha));
-        sb.append(String.format("| %-20s: %-22s |\n", "Valor final", valorFinal + 200));
+        sb.append(String.format(" %-30s: %-29s \n", "Cliente", clienteNombre));
+        sb.append(String.format(" %-30s: %-29s \n", "Cantidad bodega", cantidadBodega));
+        sb.append(String.format(" %-30s: %-29s \n", "Productos", productos));
+        sb.append(String.format(" %-30s: %-29s \n", "Estado de la reserva", estadoReserva));
+        sb.append(String.format(" %-30s: %-29s \n", "Fecha", fecha));
+        sb.append(String.format(" %-30s: %-29s \n", "Valor final", valorFinal));
         sb.append(line);
-        
+
         return sb.toString();
     }
     
@@ -94,7 +104,7 @@ public class Reserva {
         int cantidadBodega = 1;
         String estadoReserva = "Hecha";
 
-        Reserva nuevaReserva = new Reserva(cliente.getNombre(), cantidadBodega, estadoReserva, fecha, producto.getPrecio() + 200.0);
+        Reserva nuevaReserva = new Reserva(cliente.getNombre(), cantidadBodega, estadoReserva, fecha, producto.getPrecio());
         nuevaReserva.agregarProducto(producto);
         return nuevaReserva;
     }

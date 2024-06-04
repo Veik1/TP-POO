@@ -247,10 +247,38 @@ public class Cliente {
     }
     
     
-    public static void mostrarReservas(List<Reserva> listaReservas) {
-    	System.out.println("\nLista de Reservas:");
-        for (Reserva reserva : listaReservas) {
-            System.out.println(reserva.toString());
+    public void mostrarReservas(List<Reserva> listaReservas) {
+    	
+    	if(listaReservas.size() == 0) {
+    		System.out.println("No tiene reservas realizadas...");
+    	} else {
+    		System.out.println("\nLista de Reservas:");
+    		for (Reserva reserva : listaReservas) {
+    			System.out.println(reserva.toString());
+    		}
+    	}
+    }
+    
+    public void cancelarReserva(int num, List<Reserva> reservas) {
+    	int eliminada=0;
+        
+    	if(reservas.size()>0) {
+        for(int i=0;i<reservas.size();i++) {
+        	if(reservas.get(i).getIdReserva()==num) {
+        		reservas.remove(i);
+                System.out.println("---------------------");
+                System.out.println("RESERVA N°"+num+" ELIMINADA");
+                System.out.println("---------------------");
+                eliminada=1;
+            }
+        }
+        
+        if(eliminada==0) {
+        	System.out.println("RESERVA N°"+num+" NO EXISTE");
+        	}
+        } else {
+        	System.out.println("RESERVA N°"+num+" NO EXISTE"); 
+        	System.out.println("NO HAY RESERVAS CARGADAS");
         }
     }
 
