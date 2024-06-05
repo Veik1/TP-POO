@@ -291,5 +291,27 @@ public class Cliente {
         return null; // No se encontró ningún cliente
     }
     
+    public void saberHoraPasaje(Cliente cliente, List<Reserva> listaReservas) {
+        if (listaReservas.isEmpty()) {
+            System.out.println("\nNo tiene reservas realizadas...\n");
+        } else {
+            boolean foundPasaje = false;
+            for (Reserva reserva : listaReservas) {
+                for (Producto producto : reserva.getProductos()) {
+                    if (producto instanceof Pasaje) {
+                        Pasaje pasaje = (Pasaje) producto;  // Cast seguro a Pasaje
+                        System.out.println("---------------------------------------");
+                        System.out.println("Hora de salida del " + pasaje.getNombre() + ": " + pasaje.getHoraSalida());
+                        System.out.println("---------------------------------------\n");
+                        foundPasaje = true;
+                    }
+                }
+            }
+            if (!foundPasaje) {
+                System.out.println("No tiene reservas de pasajes...");
+            }
+        }
+    }
+    
    
 }

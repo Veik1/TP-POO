@@ -16,7 +16,7 @@ public class Pago {
         System.out.println("\nSeleccione un método de pago: \n");
         System.out.println("1 - Pago con tarjeta");
         System.out.println("2 - Pago con cuenta bancaria");
-        System.out.println("2 - Pago con Mercado Pago");
+        System.out.println("3 - Pago con Mercado Pago");
         System.out.print("Ingrese una opción: ");
 
         int opcion = entrada.nextInt();
