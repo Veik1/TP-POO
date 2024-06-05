@@ -245,6 +245,19 @@ public class Main {
                                 cliente.agregarReserva(nuevaReserva);
                                 System.out.println("Reserva realizada para: " + experiencia.getNombre());
                                 System.out.println("¡Gracias por elegir Buquealtoque!");
+                                
+                                System.out.println("\n¿Querés agregar más productos a la reserva?\n1 - Sí\n2 - No");
+                                System.out.println("\nSeleccione una opción: ");
+                                
+                                int opcionProductoAdicional = entrada.nextInt();
+                                switch (opcionProductoAdicional) {
+                                case 1: 
+                                	menuProductoAdicional(entrada, cliente, listaExperienciasUruguay, listaExperienciasArgentina, listaPasajes, listaDayToursUruguay, listaDayToursArgentina,
+                                			listaPaquetesUruguay, listaPaquetesArgentina, nuevaReserva);
+                                	break;
+                                case 2:
+                                	break;
+                                }
                             } catch (Exception e) {
                                 System.out.println("Error al realizar el pago: " + e.getMessage());
                                 System.out.println("La reserva no ha podido realizarse.");
@@ -272,7 +285,19 @@ public class Main {
                                 cliente.agregarReserva(nuevaReserva);
                                 System.out.println("Reserva realizada para: " + experiencia.getNombre());
                                 System.out.println("¡Gracias por elegir Buquealtoque!");
-                                break;
+                                
+                                System.out.println("\n¿Querés agregar más productos a la reserva?\n1 - Sí\n2 - No");
+                                System.out.println("\nSeleccione una opción: ");
+                                
+                                int opcionProductoAdicional = entrada.nextInt();
+                                switch (opcionProductoAdicional) {
+                                case 1: 
+                                	menuProductoAdicional(entrada, cliente, listaExperienciasUruguay, listaExperienciasArgentina, listaPasajes, listaDayToursUruguay, listaDayToursArgentina,
+                                			listaPaquetesUruguay, listaPaquetesArgentina, nuevaReserva);
+                                	break;
+                                case 2:
+                                	break;
+                                }
                             } catch (Exception e) {
                                 System.out.println("Error al realizar el pago: " + e.getMessage());
                                 System.out.println("La reserva no ha podido realizarse.");
@@ -283,6 +308,7 @@ public class Main {
                         }
                         break;
                 }
+                break;
             case 3:
                 // Mostrar lista de daytours
             	System.out.println("Elija el tipo de Day Tour según país.");
@@ -313,7 +339,19 @@ public class Main {
                                 cliente.agregarReserva(nuevaReserva);
                                 System.out.println("Reserva realizada para: " + daytour.getNombre());
                                 System.out.println("¡Gracias por elegir Buquealtoque!");
-                                break;
+                                
+                                System.out.println("\n¿Querés agregar más productos a la reserva?\n1 - Sí\n2 - No");
+                                System.out.println("\nSeleccione una opción: ");
+                                
+                                int opcionProductoAdicional = entrada.nextInt();
+                                switch (opcionProductoAdicional) {
+                                case 1: 
+                                	menuProductoAdicional(entrada, cliente, listaExperienciasUruguay, listaExperienciasArgentina, listaPasajes, listaDayToursUruguay, listaDayToursArgentina,
+                                			listaPaquetesUruguay, listaPaquetesArgentina, nuevaReserva);
+                                	break;
+                                case 2:
+                                	break;
+                                }
                             } catch (Exception e) {
                                 System.out.println("Error al realizar el pago: " + e.getMessage());
                                 System.out.println("La reserva no ha podido realizarse.");
@@ -342,7 +380,19 @@ public class Main {
                                 cliente.agregarReserva(nuevaReserva);
                                 System.out.println("Reserva realizada para: " + daytour.getNombre());
                                 System.out.println("¡Gracias por elegir Buquealtoque!");
-                                break;
+                                
+                                System.out.println("\n¿Querés agregar más productos a la reserva?\n1 - Sí\n2 - No");
+                                System.out.println("\nSeleccione una opción: ");
+                                
+                                int opcionProductoAdicional = entrada.nextInt();
+                                switch (opcionProductoAdicional) {
+                                case 1: 
+                                	menuProductoAdicional(entrada, cliente, listaExperienciasUruguay, listaExperienciasArgentina, listaPasajes, listaDayToursUruguay, listaDayToursArgentina,
+                                			listaPaquetesUruguay, listaPaquetesArgentina, nuevaReserva);
+                                	break;
+                                case 2:
+                                	break;
+                                }
                             } catch (Exception e) {
                                 System.out.println("Error al realizar el pago: " + e.getMessage());
                                 System.out.println("La reserva no ha podido realizarse.");
@@ -353,6 +403,7 @@ public class Main {
                         }
                         break;
                 }
+                break;
             case 4:
                 // Mostrar lista de paquete
             	System.out.println("Elija el tipo de Paquete según país.");
@@ -384,7 +435,19 @@ public class Main {
                                 cliente.agregarReserva(nuevaReserva);
                                 System.out.println("Reserva realizada para: " + paquete.getNombre());
                                 System.out.println("¡Gracias por elegir Buquealtoque!");
-                                break;
+                                
+                                System.out.println("\n¿Querés agregar más productos a la reserva?\n1 - Sí\n2 - No");
+                                System.out.println("\nSeleccione una opción: ");
+                                
+                                int opcionProductoAdicional = entrada.nextInt();
+                                switch (opcionProductoAdicional) {
+                                case 1: 
+                                	menuProductoAdicional(entrada, cliente, listaExperienciasUruguay, listaExperienciasArgentina, listaPasajes, listaDayToursUruguay, listaDayToursArgentina,
+                                			listaPaquetesUruguay, listaPaquetesArgentina, nuevaReserva);
+                                	break;
+                                case 2:
+                                	break;
+                                }
                             } catch (Exception e) {
                                 System.out.println("Error al realizar el pago: " + e.getMessage());
                                 System.out.println("La reserva no ha podido realizarse.");
@@ -414,7 +477,19 @@ public class Main {
                                 cliente.agregarReserva(nuevaReserva);
                                 System.out.println("Reserva realizada para: " + paquete.getNombre());
                                 System.out.println("¡Gracias por elegir Buquealtoque!");
-                                break;
+                                
+                                System.out.println("\n¿Querés agregar más productos a la reserva?\n1 - Sí\n2 - No");
+                                System.out.println("\nSeleccione una opción: ");
+                                
+                                int opcionProductoAdicional = entrada.nextInt();
+                                switch (opcionProductoAdicional) {
+                                case 1: 
+                                	menuProductoAdicional(entrada, cliente, listaExperienciasUruguay, listaExperienciasArgentina, listaPasajes, listaDayToursUruguay, listaDayToursArgentina,
+                                			listaPaquetesUruguay, listaPaquetesArgentina, nuevaReserva);
+                                	break;
+                                case 2:
+                                	break;
+                                }
                             } catch (Exception e) {
                                 System.out.println("Error al realizar el pago: " + e.getMessage());
                                 System.out.println("La reserva no ha podido realizarse.");
@@ -430,6 +505,7 @@ public class Main {
                         System.out.println("Opción no válida. Por favor, seleccione una opción válida.");
                         break;
                 }
+                break;
         }
     }
     
@@ -541,6 +617,7 @@ public class Main {
                         }
                         break;
                 }
+                break;
             case 3:
                 // Mostrar lista de daytours
             	System.out.println("Elija el tipo de Day Tour según país.");
@@ -607,6 +684,7 @@ public class Main {
                         }
                         break;
                 }
+                break;
             case 4:
                 // Mostrar lista de paquete
             	System.out.println("Elija el tipo de Paquete según país.");
@@ -674,12 +752,14 @@ public class Main {
                             System.out.println("Opción no válida. Por favor, seleccione una opción válida.");
                         }
                         break;
-                    case 0:
-                    	break;
-                    default:
-                        System.out.println("Opción no válida. Por favor, seleccione una opción válida.");
-                        break;
                 }
+                break;
+            case 0:
+            	salir = true;
+            	break;
+            default:
+            	System.out.println("Opción no válida. Por favor, seleccione una opción válida.");
+            	break;
             }
     	}
     }
