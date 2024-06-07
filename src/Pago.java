@@ -41,11 +41,11 @@ public class Pago {
             throw new Exception("No tiene tarjetas registradas. Por favor, agregue una tarjeta primero.");
         }
 
-        System.out.println("Seleccione una tarjeta para el pago:");
         for (int i = 0; i < tarjetas.size(); i++) {
             System.out.println((i + 1) + " - " + tarjetas.get(i));
         }
 
+        System.out.println("Seleccione una tarjeta para el pago:");
         int opcion = entrada.nextInt();
         entrada.nextLine();
         if (opcion < 1 || opcion > tarjetas.size()) {
@@ -61,11 +61,11 @@ public class Pago {
             throw new Exception("No tiene cuentas bancarias registradas. Por favor, agregue una primero.");
         }
 
-        System.out.println("Seleccione una cuenta bancaria para el pago:");
         for (int i = 0; i < cuentasBancarias.size(); i++) {
             System.out.println((i + 1) + " - " + cuentasBancarias.get(i));
         }
 
+        System.out.println("Seleccione una cuenta bancaria para el pago:");
         int opcion = entrada.nextInt();
         entrada.nextLine();
         if (opcion < 1 || opcion > cuentasBancarias.size()) {
@@ -81,11 +81,11 @@ public class Pago {
             throw new Exception("No tiene cuentas de Mercado Pago. Por favor, agregue una primero.");
         }
 
-        System.out.println("Seleccione una cuenta de Mercado Pago para el pago:");
         for (int i = 0; i < cuentasMercadoPago.size(); i++) {
             System.out.println((i + 1) + " - " + cuentasMercadoPago.get(i));
         }
 
+        System.out.println("Seleccione una cuenta bancaria para el pago:");
         int opcion = entrada.nextInt();
         entrada.nextLine();
         if (opcion < 1 || opcion > cuentasMercadoPago.size()) {

@@ -62,10 +62,10 @@ public class Main {
         
         List<Paquete> listaPaquetesUruguay = new ArrayList<>();
         List<Paquete> listaPaquetesArgentina = new ArrayList<>();
-        Paquete paquete1 = new Paquete("Raices porteñas", 6, "Hotel 5 estrellas", pasaje1, experiencia4, daytour2);
-        Paquete paquete2 = new Paquete("Escapada a Buenos Aires", 6, "Hotel 4 estrellas", pasaje1, experiencia5, daytour2);
-        Paquete paquete3 = new Paquete("Viaje oriental", 6, "Hotel 5 estrellas", pasaje2, experiencia1, daytour1);
-        Paquete paquete4 = new Paquete("Descubre Montevideo", 6, "Hotel 5 estrellas", pasaje2, experiencia3, daytour1);
+        Paquete paquete1 = new Paquete("Raices porteñas", 400, "Hotel 5 estrellas", pasaje1, experiencia4, daytour2);
+        Paquete paquete2 = new Paquete("Escapada a Buenos Aires", 420, "Hotel 4 estrellas", pasaje1, experiencia5, daytour2);
+        Paquete paquete3 = new Paquete("Viaje oriental", 430, "Hotel 5 estrellas", pasaje2, experiencia1, daytour1);
+        Paquete paquete4 = new Paquete("Descubre Montevideo", 390, "Hotel 5 estrellas", pasaje2, experiencia3, daytour1);
         listaPaquetesArgentina.add(paquete1);
         listaPaquetesArgentina.add(paquete2);
         listaPaquetesUruguay.add(paquete3);
@@ -543,6 +543,10 @@ public class Main {
                         nuevaReserva.agregarProducto(pasaje);
                         double precioNuevo = nuevaReserva.calcularValorFinal();
                         nuevaReserva.setValorFinal(precioNuevo);
+                        System.out.println("Reserva realizada para: " + pasaje.getNombre());
+                        System.out.println("¡Gracias por elegir Buquealtoque!");
+                        cliente.verificarSiEsVip(cliente, cliente.getReservas());
+                        
                     } catch (Exception e) {
                         System.out.println("Error al realizar el pago: " + e.getMessage());
                         System.out.println("La reserva en el producto adicional no ha podido realizarse.");
@@ -581,6 +585,8 @@ public class Main {
                                 nuevaReserva.setValorFinal(precioNuevo);
                                 System.out.println("Reserva realizada para: " + experiencia.getNombre());
                                 System.out.println("¡Gracias por elegir Buquealtoque!");
+                                cliente.verificarSiEsVip(cliente, cliente.getReservas());
+                                
                             } catch (Exception e) {
                                 System.out.println("Error al realizar el pago: " + e.getMessage());
                                 System.out.println("La reserva no ha podido realizarse.");
@@ -608,6 +614,8 @@ public class Main {
                                 nuevaReserva.setValorFinal(precioNuevo);
                                 System.out.println("Reserva realizada para: " + experiencia.getNombre());
                                 System.out.println("¡Gracias por elegir Buquealtoque!");
+                                cliente.verificarSiEsVip(cliente, cliente.getReservas());
+                                
                             } catch (Exception e) {
                                 System.out.println("Error al realizar el pago: " + e.getMessage());
                                 System.out.println("La reserva no ha podido realizarse.");
@@ -648,6 +656,8 @@ public class Main {
                                 nuevaReserva.setValorFinal(precioNuevo);
                                 System.out.println("Reserva realizada para: " + daytour.getNombre());
                                 System.out.println("¡Gracias por elegir Buquealtoque!");
+                                cliente.verificarSiEsVip(cliente, cliente.getReservas());
+                                
                             } catch (Exception e) {
                                 System.out.println("Error al realizar el pago: " + e.getMessage());
                                 System.out.println("La reserva no ha podido realizarse.");
@@ -675,6 +685,8 @@ public class Main {
                                 nuevaReserva.setValorFinal(precioNuevo);
                                 System.out.println("Reserva realizada para: " + daytour.getNombre());
                                 System.out.println("¡Gracias por elegir Buquealtoque!");
+                                cliente.verificarSiEsVip(cliente, cliente.getReservas());
+                                
                             } catch (Exception e) {
                                 System.out.println("Error al realizar el pago: " + e.getMessage());
                                 System.out.println("La reserva no ha podido realizarse.");
@@ -716,6 +728,8 @@ public class Main {
                                 nuevaReserva.setValorFinal(precioNuevo);
                                 System.out.println("Reserva realizada para: " + paquete.getNombre());
                                 System.out.println("¡Gracias por elegir Buquealtoque!");
+                                cliente.verificarSiEsVip(cliente, cliente.getReservas());
+                                
                             } catch (Exception e) {
                                 System.out.println("Error al realizar el pago: " + e.getMessage());
                                 System.out.println("La reserva no ha podido realizarse.");
@@ -744,6 +758,8 @@ public class Main {
                                 nuevaReserva.setValorFinal(precioNuevo);
                                 System.out.println("Reserva realizada para: " + paquete.getNombre());
                                 System.out.println("¡Gracias por elegir Buquealtoque!");
+                                cliente.verificarSiEsVip(cliente, cliente.getReservas());
+                                
                             } catch (Exception e) {
                                 System.out.println("Error al realizar el pago: " + e.getMessage());
                                 System.out.println("La reserva no ha podido realizarse.");
@@ -774,6 +790,7 @@ public class Main {
             System.out.println("2 - ¿Se pueden llevar animales?");
             System.out.println("3 - ¿Hay juegos para los chicos en el viaje?");
             System.out.println("4 - ¿Se pueden ver películas en los viajes?");
+            System.out.println("5 - ¿Cómo puedo ser un cliente VIP?");
             System.out.println("0 - Salir del menú\n");
             System.out.print("Ingrese una opción: ");
 
@@ -795,6 +812,15 @@ public class Main {
                 case 4:
                     System.out.println("Sí, se proyectan películas durante los viajes para que los pasajeros puedan disfrutar.\n");
                     break;
+                case 5:
+                	System.out.print("\n");
+                	System.out.println("Para ser un cliente debe, por lo menos, realizar una compra que supere los $500.");
+                	if(cliente.getTipoCliente()) {
+                		System.out.println("¡Felicitaciones " + cliente.getNombre() + ", sos un cliente VIP!");
+                	} else {
+                		System.out.println("Aún no cumplís el requisito para ser un cliente VIP, " + cliente.getNombre() + ".");
+                	}
+                	break;
                 case 0:
                 	salir = true;
                     System.out.println("Gracias por usar el soporte de Buquealtoque. ¡Que tengas un buen día!");
@@ -803,12 +829,12 @@ public class Main {
                     System.out.println("Opción inválida. Por favor, selecciona una opción válida.\n");
             }
     	}
-    } 
+    }
 
     public static void menuMetodoPago(Scanner entrada, Cliente cliente) {
     	boolean salir = false;
     	while (!salir) {
-        	System.out.println("\nMenú de métodos de pago: \n");
+        	System.out.println("\nMenú de métodos de pago\n");
             System.out.println("1 - Añadir una tarjeta");
             System.out.println("2 - Añadir una cuenta bancaria");
             System.out.println("3 - Añadir mercado pago");
@@ -822,19 +848,19 @@ public class Main {
                     //Lógica para añadir una tarjeta al cliente
                     Tarjeta nuevaTarjeta = Tarjeta.crearTarjeta(entrada);
                     cliente.agregarTarjeta(nuevaTarjeta);
-                    System.out.println("Cuenta de Mercado Pago del cliente: " + nuevaTarjeta);
+                    System.out.println("Tarjeta de crédito añadida correctamente al cliente: " + nuevaTarjeta);
                     break;
                 case 2:
                     //Lógica para añadir una cuenta bancaria al cliente
                     CuentaBancaria nuevaCuentaBancaria = CuentaBancaria.crearCuentaBancaria(entrada);
                     cliente.agregarCuentaBancaria(nuevaCuentaBancaria);
-                    System.out.println("Cuenta bancaria agregada al cliente: " + nuevaCuentaBancaria);
+                    System.out.println("Cuenta bancaria añadida correctamente al cliente: " + nuevaCuentaBancaria);
                     break;
                 case 3:
                     //Lógica para añadir una cuenta bancaria al cliente
                     MercadoPago nuevoMercadoPago = MercadoPago.crearMercadoPago(entrada);
                     cliente.agregarCuentaMercadoPago(nuevoMercadoPago);
-                    System.out.println("Cuenta de Mercado Pago agregada al cliente: " + nuevoMercadoPago);
+                    System.out.println("Cuenta de Mercado Pago añadida correctamente al cliente: " + nuevoMercadoPago);
                     break;
             	case 0:
             		salir = true;
@@ -848,7 +874,7 @@ public class Main {
     public static void menuReservas(Scanner entrada, Cliente cliente) {
     	boolean salir = false;
     	while (!salir) {
-        	System.out.println("\nMenú de reservas: \n");
+        	System.out.println("\nMenú de reservas\n");
             System.out.println("1 - Ver mis reservas");
             System.out.println("2 - Cancelar una reserva");
             System.out.println("0 - Salir del menú\n");

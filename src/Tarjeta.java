@@ -1,14 +1,14 @@
 import java.util.Scanner;
 
 public class Tarjeta {
-    private String numTarjeta;
+    private int numTarjeta;
     private String nombreBanco;
     private String titular;
     private FechaCorta fechaVec;
     private String codSeguridad;
 
     // Constructor
-    public Tarjeta(String numTarjeta, String nombreBanco, String titular, FechaCorta fechaVec, String codSeguridad) {
+    public Tarjeta(int numTarjeta, String nombreBanco, String titular, FechaCorta fechaVec, String codSeguridad) {
         this.numTarjeta = numTarjeta;
         this.nombreBanco = nombreBanco;
         this.titular = titular;
@@ -17,11 +17,11 @@ public class Tarjeta {
     }
 
     // Getters and Setters
-    public String getNumTarjeta() {
+    public int getNumTarjeta() {
         return numTarjeta;
     }
 
-    public void setNumTarjeta(String numTarjeta) {
+    public void setNumTarjeta(int numTarjeta) {
         this.numTarjeta = numTarjeta;
     }
 
@@ -68,7 +68,7 @@ public class Tarjeta {
 
     public static Tarjeta crearTarjeta(Scanner entrada) {
         System.out.print("Ingrese el número de la tarjeta: ");
-        String numTarjeta = entrada.nextLine();
+        int numTarjeta = Integer.parseInt(entrada.nextLine());
 
         System.out.print("Ingrese el nombre del banco de la tarjeta: ");
         String nombreBanco = entrada.nextLine();
@@ -87,4 +87,5 @@ public class Tarjeta {
 
         return new Tarjeta(numTarjeta, nombreBanco, titular, fechaVec, codSeguridad);
     }
+
 }

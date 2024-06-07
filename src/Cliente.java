@@ -266,7 +266,7 @@ public class Cliente {
         for(int i=0;i<reservas.size();i++) {
         	if(reservas.get(i).getIdReserva()==num) {
         		reservas.remove(i);
-                System.out.println("---------------------");
+                System.out.println("\n---------------------");
                 System.out.println("RESERVA N°"+num+" ELIMINADA");
                 System.out.println("---------------------");
                 eliminada=1;
@@ -313,5 +313,12 @@ public class Cliente {
         }
     }
     
+    public void verificarSiEsVip(Cliente cliente, List<Reserva> listaReservas) {
+        for(int i=0;i<listaReservas.size();i++) {
+        	if(listaReservas.get(i).getValorFinal() >= 500) {
+        		this.clienteVIP = true;
+            }
+        }
+    }
    
 }

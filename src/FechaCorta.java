@@ -40,9 +40,9 @@ public class FechaCorta {
     private boolean validarFecha() {
         boolean fechaValida = true;
 
-        // Validar que el año esté entre 1900 y el 2100
-        if (año < 2016 || año > 2036) {
-            System.out.println("El año debe estar entre 2016 y el 2036.");
+        // Validar que el año esté entre 2025 y el 2036
+        if (año < 2025 || año > 2036) {
+            System.out.println("El año debe estar entre 2025 y el 2036.");
             fechaValida = false;
         }
 
