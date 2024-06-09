@@ -1,6 +1,6 @@
+import java.util.List;
 import java.util.Scanner;
-import java.util.Calendar;
-
+import java.util.function.Consumer;
 
 public class Pasaje extends Producto {
     private Fecha fecha;
@@ -9,8 +9,10 @@ public class Pasaje extends Producto {
     private String origen;
     private String destino;
     private int cantidadPasajeros;
+    private Buque buque;
 
-    Pasaje(String nombre, double precio, Fecha fecha, String horaSalida, String horaLlegada, String origen, String destino, int cantidadPasajeros) {
+    // Constructor
+    Pasaje(String nombre, double precio, Fecha fecha, String horaSalida, String horaLlegada, String origen, String destino, int cantidadPasajeros, Buque buque) {
         super(nombre, precio);
         this.fecha = fecha;
         this.horaSalida = horaSalida;
@@ -18,8 +20,10 @@ public class Pasaje extends Producto {
         this.origen = origen;
         this.destino = destino;
         this.cantidadPasajeros = cantidadPasajeros;
+        this.buque = buque;  // Utiliza el buque proporcionado
     }
 
+    // Getters
     public Fecha getFecha() {
         return fecha;
     }
@@ -39,96 +43,116 @@ public class Pasaje extends Producto {
     public String getDestino() {
         return destino;
     }
-    
+
     public int getCantidadPasajeros() {
         return cantidadPasajeros;
     }
 
-    public void mostrarProductos() {
-        System.out.println("1- Pasaje desde Argentina a Uruguay");
-        System.out.println("2- Pasaje desde Uruguay a Argentina");
+    public Buque getBuque() {
+        return buque;
     }
-    
+
     @Override
     public String toString() {
-        return "Pasaje - " + getNombre();
+        return "Pasaje - " + getNombre() + " en buque " + buque.getNombre() + " (Capacidad: " + buque.getCapacidad() + ", Lugares reservados: " + buque.getPasajerosActuales() + ")";
     }
+   
+    
+    public void crearProducto(Scanner entrada, Cliente cliente,
+                              List<Experiencia> listaExperienciasUruguay, List<Experiencia> listaExperienciasArgentina, List<Pasaje> listaPasajes,
+                              List<DayTour> listaDayToursUruguay, List<DayTour> listaDayToursArgentina,
+                              List<Paquete> listaPaquetesUruguay, List<Paquete> listaPaquetesArgentina,
+                              Consumer<Reserva> menuProductoAdicional) {
+        System.out.println("Lista de Pasajes Disponibles:");
+        for (int i = 0; i < listaPasajes.size(); i++) {
+            System.out.println((i + 1) + ". " + listaPasajes.get(i).toString());
+        }
 
-    public void crearPasaje(Scanner entrada) {
-        mostrarProductos();
-        System.out.println("Seleccione su destino: ");
-        int opcion = entrada.nextInt();
-        entrada.nextLine(); // Limpiar el buffer del scanner
-        switch (opcion) {
-            case 1:
-                // Lógica para la opción 1                                     
-                Fecha fechaPasaje1 = null;
-                while(fechaPasaje1 == null) {
-                    System.out.print("Ingrese la Fecha para su pasaje: (dd/MM/aaaa): ");
-                    fechaPasaje1 = Fecha.obtenerFecha(entrada.nextLine());
-                }
-                if (fechaPasaje1 != null) {
-                    int añoPasaje1 = fechaPasaje1.getAño();
-                    int mesPasaje1 = fechaPasaje1.getMes();
-                    int diaPasaje1 = fechaPasaje1.getDia();
+        System.out.print("Seleccione el pasaje que desea reservar: ");
+        int seleccionPasaje = entrada.nextInt();
+        entrada.nextLine();
 
-                    Calendar fechaPasaje = Calendar.getInstance();
-                    fechaPasaje.set(añoPasaje1, mesPasaje1 - 1, diaPasaje1); // Restamos 1 al mes porque en Calendar, enero es 0
-                    Calendar fechaActual = Calendar.getInstance();
-                    fechaActual.add(Calendar.YEAR, 0);
-                    if (fechaPasaje.before(fechaActual)) {
-                        System.out.println("No puede ingresar un día que ya pasó.");
-                        return;
-                    }
-                }
-                System.out.print("Ingrese la cantidad de pasajeros: ");
-                int cantidadPasajeros1 = entrada.nextInt();
-                entrada.nextLine(); // Limpiar el buffer del scanner
-                
-                Pasaje pasajeAU = new Pasaje("Pasaje de Argentina a Uruguay", 100.0, fechaPasaje1, "08:00", "10:00", "Argentina", "Uruguay", cantidadPasajeros1);
-                mostrarPasaje(pasajeAU);
-                break;
-            case 2:
-                // Lógica para la opción 2
-            	Fecha fechaPasaje2 = null;
-                while(fechaPasaje2 == null) {
-                    System.out.print("Ingrese la Fecha para su pasaje: (dd/MM/aaaa): ");
-                    fechaPasaje2 = Fecha.obtenerFecha(entrada.nextLine());
-                }
-                if (fechaPasaje2 != null) {
-                    int añoPasaje2 = fechaPasaje2.getAño();
-                    int mesPasaje2 = fechaPasaje2.getMes();
-                    int diaPasaje2 = fechaPasaje2.getDia();
+        if (seleccionPasaje > 0 && seleccionPasaje <= listaPasajes.size()) {
+            Pasaje pasaje = listaPasajes.get(seleccionPasaje - 1);
 
-                    Calendar fechaPasaje = Calendar.getInstance();
-                    fechaPasaje.set(añoPasaje2, mesPasaje2 - 1, diaPasaje2); // Restamos 1 al mes porque en Calendar, enero es 0
-                    Calendar fechaActual2 = Calendar.getInstance();
-                    fechaActual2.add(Calendar.YEAR, 0);
-                    if (fechaPasaje.before(fechaActual2)) {
-                    	System.out.println("No puede ingresar un día que ya pasó.");
-                    	return;
-                    }
+            // Verificar capacidad del buque
+            if (!pasaje.getBuque().verificarCapacidad(pasaje.getCantidadPasajeros())) {
+                System.out.println("No hay suficiente capacidad en el buque para esta reserva.");
+                return;
+            }
+
+            Pago pagoPasaje = new Pago(cliente);
+
+            try {
+                pagoPasaje.seleccionarMetodoDePago(entrada);
+                Reserva nuevaReserva = new Reserva(cliente.getNombre() + ' ' + cliente.getApellido(), 1, "Hecha", Fecha.obtenerFechaYHoraActual(), pasaje.getPrecio());
+                nuevaReserva.agregarProducto(pasaje);
+                double precioNuevo = nuevaReserva.calcularValorFinal();
+                nuevaReserva.setValorFinal(precioNuevo);
+                cliente.agregarReserva(nuevaReserva);
+
+                // Actualizar la capacidad del buque
+                pasaje.getBuque().agregarPasajeros(pasaje.getCantidadPasajeros());
+
+                System.out.println("Reserva realizada para: " + pasaje.getNombre());
+                System.out.println("¡Gracias por elegir Buquealtoque!");
+
+                System.out.println("\n¿Querés agregar más productos a la reserva?\n1 - Sí\n2 - No");
+                System.out.print("Seleccione una opción: ");
+                int opcionProductoAdicional = entrada.nextInt();
+
+                if (opcionProductoAdicional == 1) {
+                    menuProductoAdicional.accept(nuevaReserva);
                 }
-                System.out.print("Ingrese la cantidad de pasajeros: ");
-                int cantidadPasajeros2 = entrada.nextInt();
-                entrada.nextLine(); // Limpiar el buffer del scanner
-                
-                Pasaje pasajeUA = new Pasaje("Pasaje de Uruguay a Argentina", 100.0, fechaPasaje2, "08:00", "10:00", "Uruguay", "Argentina", cantidadPasajeros2);
-                mostrarPasaje(pasajeUA);
-                break;
-            default:
-                System.out.println("Opción no válida. Por favor, seleccione una opción válida.");
-                break;
+
+            } catch (Exception e) {
+                System.out.println("Error al realizar el pago: " + e.getMessage());
+                System.out.println("La reserva no ha podido realizarse.");
+            }
+        } else {
+            System.out.println("Opción no válida. Por favor, seleccione una opción válida.");
         }
     }
     
-    private void mostrarPasaje(Pasaje pasaje) {
-        System.out.println("Pasaje creado:");
-        System.out.println("Nombre: " + pasaje.getNombre());
-        System.out.println("Precio: " + pasaje.getPrecio());
-        System.out.println("Fecha de Pasaje: " + pasaje.getFecha());
-        System.out.println("Cantidad de pasajeros: " + pasaje.getCantidadPasajeros());
-        System.out.println("Origen: " + pasaje.getOrigen());
-        System.out.println("Destino: " + pasaje.getDestino());
+    public static void agregarProductoAdicional(Scanner entrada, Cliente cliente, List<Experiencia> listaExperienciasUruguay, List<Experiencia> listaExperienciasArgentina, 
+    		List<Pasaje> listaPasajes, List<DayTour> listaDayToursUruguay, List<DayTour> listaDayToursArgentina, List<Paquete> listaPaquetesUruguay, List<Paquete> listaPaquetesArgentina, Reserva nuevaReserva) {
+    	// Mostrar lista de pasajes
+        System.out.println("Lista de Pasajes Disponibles:");
+        for (int i = 0; i < listaPasajes.size(); i++) {
+            System.out.println((i + 1) + ". " + listaPasajes.get(i).toString());
+        }
+        System.out.print("Seleccione el pasaje que desea reservar: ");
+         
+        int seleccionPasaje = entrada.nextInt();
+        entrada.nextLine();
+        if (seleccionPasaje > 0 && seleccionPasaje <= listaPasajes.size()) {
+            Pasaje pasaje = listaPasajes.get(seleccionPasaje - 1);
+            
+
+            // Verificar capacidad del buque
+            if (!pasaje.getBuque().verificarCapacidad(pasaje.getCantidadPasajeros())) {
+                System.out.println("No hay suficiente capacidad en el buque para esta reserva.");
+                return;
+            }
+            
+            Pago pagoPasaje = new Pago(cliente);
+            try {
+            	pagoPasaje.seleccionarMetodoDePago(entrada);
+                nuevaReserva.agregarProducto(pasaje);
+                double precioNuevo = nuevaReserva.calcularValorFinal();
+                nuevaReserva.setValorFinal(precioNuevo);
+                System.out.println("Reserva realizada para: " + pasaje.getNombre());
+                System.out.println("¡Gracias por elegir Buquealtoque!");
+                cliente.verificarSiEsVip(cliente, cliente.getReservas());
+                // Actualizar la capacidad del buque
+                pasaje.getBuque().agregarPasajeros(pasaje.getCantidadPasajeros());
+                
+            } catch (Exception e) {
+                System.out.println("Error al realizar el pago: " + e.getMessage());
+                System.out.println("La reserva en el producto adicional no ha podido realizarse.");
+            }
+        } else {
+        	System.out.println("Opción no válida. Por favor, seleccione una opción válida.");
+        }
     }
 }

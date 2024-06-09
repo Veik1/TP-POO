@@ -1,6 +1,11 @@
-
+import java.util.List;
+import java.util.Scanner;
+import java.util.function.Consumer;
 
 // Clase principal Producto
+
+
+
 public abstract class Producto {
     private String nombre;
     private double precio;
@@ -11,11 +16,10 @@ public abstract class Producto {
         this.precio = precio;
     }
     
-    // Método abstracto para mostrar productos
-    public abstract void mostrarProductos();
 
     // Getters
-    public String getNombre() {
+
+public String getNombre() {
         return nombre;
     }
 
@@ -27,7 +31,12 @@ public abstract class Producto {
     	this.precio = precio;
     }
     
-    
+    //Metodo abstracto para crear productos
+    public abstract void crearProducto(Scanner entrada, Cliente cliente,
+            List<Experiencia> listaExperienciasUruguay, List<Experiencia> listaExperienciasArgentina, List<Pasaje> listaPasajes,
+            List<DayTour> listaDayToursUruguay, List<DayTour> listaDayToursArgentina,
+            List<Paquete> listaPaquetesUruguay, List<Paquete> listaPaquetesArgentina,
+            Consumer<Reserva> menuProductoAdicional);
 
 }
 

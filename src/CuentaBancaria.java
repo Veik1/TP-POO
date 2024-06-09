@@ -1,16 +1,13 @@
 import java.util.Scanner;
 
-public class CuentaBancaria {
+public class CuentaBancaria extends MetodoPago {
     private String numCuenta;
-    private String nombreBanco;
-    private String titular;
     private String tipoCuenta;
 
     // Constructor
-    public CuentaBancaria(String numCuenta, String nombreBanco, String titular, String tipoCuenta) {
+    public CuentaBancaria(String numCuenta, String nombre, String titular, String tipoCuenta) {
+        super(nombre, titular);
         this.numCuenta = numCuenta;
-        this.nombreBanco = nombreBanco;
-        this.titular = titular;
         this.tipoCuenta = tipoCuenta;
     }
 
@@ -21,22 +18,6 @@ public class CuentaBancaria {
 
     public void setNumCuenta(String numCuenta) {
         this.numCuenta = numCuenta;
-    }
-
-    public String getNombreBanco() {
-        return nombreBanco;
-    }
-
-    public void setNombreBanco(String nombreBanco) {
-        this.nombreBanco = nombreBanco;
-    }
-
-    public String getTitular() {
-        return titular;
-    }
-
-    public void setTitular(String titular) {
-        this.titular = titular;
     }
 
     public String getTipoCuenta() {
@@ -50,8 +31,8 @@ public class CuentaBancaria {
     @Override
     public String toString() {
         return "Número de cuenta = " + numCuenta +
-               ", Nombre del banco = " + nombreBanco +
-               ", Titular = " + titular +
+               ", Nombre del banco = " + getNombre() +
+               ", Titular = " + getTitular() +
                ", Tipo de cuenta = " + tipoCuenta + "\n";
     }
 

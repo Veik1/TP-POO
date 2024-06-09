@@ -71,6 +71,27 @@ public class Reserva {
         this.valorFinal = valorFinal;
     }
     
+    public boolean tienePasajes() {
+        List<Producto> productos = getProductos(); // Asumiendo que tienes un método para obtener la lista de productos
+        for (Producto producto : productos) {
+            if (producto instanceof Pasaje) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public List<Pasaje> getPasajes() {
+        List<Producto> productos = getProductos(); // Asumiendo que tienes un método para obtener la lista de productos
+        List<Pasaje> pasajes = new ArrayList<>();
+        for (Producto producto : productos) {
+            if (producto instanceof Pasaje) {
+                pasajes.add((Pasaje) producto);
+            }
+        }
+        return pasajes;
+    }
+    
     public double calcularValorFinal() {
     	this.valorFinal = 0;
     	

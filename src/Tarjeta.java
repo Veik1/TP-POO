@@ -1,17 +1,14 @@
 import java.util.Scanner;
 
-public class Tarjeta {
+public class Tarjeta extends MetodoPago {
     private int numTarjeta;
-    private String nombreBanco;
-    private String titular;
     private FechaCorta fechaVec;
     private String codSeguridad;
 
     // Constructor
-    public Tarjeta(int numTarjeta, String nombreBanco, String titular, FechaCorta fechaVec, String codSeguridad) {
+    public Tarjeta(int numTarjeta, String nombre, String titular, FechaCorta fechaVec, String codSeguridad) {
+        super(nombre, titular);
         this.numTarjeta = numTarjeta;
-        this.nombreBanco = nombreBanco;
-        this.titular = titular;
         this.fechaVec = fechaVec;
         this.codSeguridad = codSeguridad;
     }
@@ -23,22 +20,6 @@ public class Tarjeta {
 
     public void setNumTarjeta(int numTarjeta) {
         this.numTarjeta = numTarjeta;
-    }
-
-    public String getNombreBanco() {
-        return nombreBanco;
-    }
-
-    public void setNombreBanco(String nombreBanco) {
-        this.nombreBanco = nombreBanco;
-    }
-
-    public String getTitular() {
-        return titular;
-    }
-
-    public void setTitular(String titular) {
-        this.titular = titular;
     }
 
     public FechaCorta getFechaVec() {
@@ -60,8 +41,8 @@ public class Tarjeta {
     @Override
     public String toString() {
         return "Número de la tarjeta = " + numTarjeta +
-               ", Nombre del banco = " + nombreBanco +
-               ", Titular = " + titular +
+               ", Nombre del banco = " + getNombre() +
+               ", Titular = " + getTitular() +
                ", Fecha de vencimiento = " + fechaVec +
                ", Código de seguridad = " + codSeguridad + "\n";
     }

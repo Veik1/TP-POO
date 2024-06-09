@@ -1,26 +1,17 @@
 import java.util.Scanner;
 
-public class MercadoPago {
-    private String titular;
+public class MercadoPago extends MetodoPago {
     private String numCuenta;
     private String numComprobante;
 
     // Constructor
-    public MercadoPago(String titular, String numCuenta, String numComprobante) {
-        this.titular = titular;
+    public MercadoPago(String numCuenta, String titular, String nombre, String numComprobante) {
+        super(nombre, titular);
         this.numCuenta = numCuenta;
         this.numComprobante = numComprobante;
     }
 
     // Getters and Setters
-    public String getTitular() {
-        return titular;
-    }
-
-    public void setTitular(String titular) {
-        this.titular = titular;
-    }
-    
     public String getNumCuenta() {
         return numCuenta;
     }
@@ -39,7 +30,8 @@ public class MercadoPago {
 
     @Override
     public String toString() {
-        return "Titula de la cuenta = " + titular +
+        return "Titular de la cuenta = " + getTitular() + 
+               ", Nombre de la entidad = " + getNombre() +
                ", Número de la cuenta = " + numCuenta +
                ", Número de comprobante = " + numComprobante + "\n";
     }
@@ -48,12 +40,14 @@ public class MercadoPago {
         System.out.print("Ingrese el nombre del titular: ");
         String titular = entrada.nextLine();
 
+        String nombre = "Mercado Pago";
+
         System.out.print("Ingrese el número de la cuenta: ");
         String numCuenta = entrada.nextLine();
 
         System.out.print("Ingrese el número de comprobante del titular: ");
         String numComprobante = entrada.nextLine();
 
-        return new MercadoPago(titular, numCuenta, numComprobante);
+        return new MercadoPago(numCuenta, titular, nombre, numComprobante);
     }
 }

@@ -260,27 +260,48 @@ public class Cliente {
     }
     
     public void cancelarReserva(int num, List<Reserva> reservas) {
-    	int eliminada=0;
-        
-    	if(reservas.size()>0) {
-        for(int i=0;i<reservas.size();i++) {
-        	if(reservas.get(i).getIdReserva()==num) {
-        		reservas.remove(i);
-                System.out.println("\n---------------------");
-                System.out.println("RESERVA N°"+num+" ELIMINADA");
-                System.out.println("---------------------");
-                eliminada=1;
+        int eliminada = 0;
+
+        if (reservas.size() > 0) {
+            for (int i = 0; i < reservas.size(); i++) {
+                if (reservas.get(i).getIdReserva() == num) {
+                    Reserva reserva = reservas.get(i);
+
+                    // Verificar si la reserva contiene pasajes
+                    if (reserva.tienePasajes()) {
+                        List<Pasaje> pasajes = reserva.getPasajes();
+                        Buque buque;
+                        int cantidadPasajeros;
+                        // Iterar sobre cada pasaje de la reserva
+                        for (Pasaje pasaje : pasajes) {
+                            buque = pasaje.getBuque();
+                            cantidadPasajeros = pasaje.getCantidadPasajeros();
+
+                            // Llamar al método para restar pasajeros en el buque
+                            buque.restarPasajeros(cantidadPasajeros);
+                        }
+                    }
+
+                    // Eliminar la reserva de la lista
+                    reservas.remove(i);
+
+                    System.out.println("\n---------------------");
+                    System.out.println("RESERVA N°" + num + " ELIMINADA");
+                    System.out.println("---------------------");
+                    eliminada = 1;
+                    break;
+                }
             }
-        }
-        
-        if(eliminada==0) {
-        	System.out.println("RESERVA N°"+num+" NO EXISTE");
-        	}
+
+            if (eliminada == 0) {
+                System.out.println("RESERVA N°" + num + " NO EXISTE");
+            }
         } else {
-        	System.out.println("RESERVA N°"+num+" NO EXISTE"); 
-        	System.out.println("NO HAY RESERVAS CARGADAS");
+            System.out.println("NO HAY RESERVAS CARGADAS");
         }
     }
+
+
 
     public static Cliente buscarCliente(String email, String password, List<Cliente> listaClientes) {
         for (Cliente cliente : listaClientes) {
